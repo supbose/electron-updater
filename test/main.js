@@ -42,7 +42,24 @@ const update = autoUpdater({
 })
 
 function createWindow() {
-    mainWindow = new BrowserWindow({width: 800, height: 600})
+    mainWindow = new BrowserWindow({
+        width: 400,
+        height: 200,
+        maxHeight:200,
+        maxWidth:400,
+        minHeight:200,
+        minWidth:400,
+        frame: false,
+        skipTaskbar: true,
+        transparent: true,
+        resizable: true,      
+        webPreferences: {
+          contextIsolation: false, // 设置此项为false后，才可在渲染进程中使用electron api
+          nodeIntegration: true,
+          devTools: true,
+          experimentalFeatures: true
+        }
+    })
     mainWindow.loadURL(`file://${__dirname}/index.html?version=${app.getVersion()}`)
     mainWindow.webContents.openDevTools()
     mainWindow.on('closed', function () {
